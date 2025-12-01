@@ -52,3 +52,8 @@ The first thing i want to do is figure out the byte and big endian situation fir
 i have added the two functions to reverse bytes, now i just need to test it out
 
 so after trying it out i have realized that my computer using little endian, so i will now perform a check to see if the reverse bytes function works now. I just tried the reverse function and it works so the endianness and the byte format has been squared away i will now focus on the commands.
+
+i have been able to create the insert and create commands, the user is able to type those commands into the cli and expect output although i have not fully implemented them yet. I am running into some trouble figuring out how to write the block ids to the file after i create a file but what will be for another session.
+
+12/01/2025 12:51 PM
+I was able to figure out the endianness of my computer and also the byte format, i was aleo able to create the insert and search commands, so two out of 3 planned commands were partially implemented. in the next session i plan to figure out how to write to the index file properly and implement the rest of the commands.
