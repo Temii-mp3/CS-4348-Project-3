@@ -46,3 +46,9 @@ The goal of this session is to get the basic parts of the projcet working, like 
 implement at least the insert, create, and search commands. This is just to make to computer read the commands and interprete them as commands, not the actual implementation.
 I realized i migh tbe committing a lot so i created a bash script that automatically commits for me
 i included a gitignore file so as to prevent unnecessary files from being committed. I will start with the project now.
+
+The first thing i want to do is figure out the byte and big endian situation first so i will implement the big endian function that was provided in the project files
+
+i have added the two functions to reverse bytes, now i just need to test it out
+
+so after trying it out i have realized that my computer using little endian, so i will now perform a check to see if the reverse bytes function works now. I just tried the reverse function and it works so the endianness and the byte format has been squared away i will now focus on the commands.
