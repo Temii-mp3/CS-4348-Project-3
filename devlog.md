@@ -60,3 +60,5 @@ I was able to figure out the endianness of my computer and also the byte format,
 
 12/02/2025 09:49 AM
 I am starting a new session. in this session i plan to get all the commands working partially (the computer an recognize the commands) and i also plan to fix the bug that is not letting me read variable data into the file. I will start by editing my bash script to commit because the commit message doesnt seem to be changing
+
+ok that seems to fix it, it actually did not, i just needed to pass in the msg variable in quotes with a dollar sign in front, silly me. it should be fixed now
