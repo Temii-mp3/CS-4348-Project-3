@@ -62,3 +62,6 @@ I was able to figure out the endianness of my computer and also the byte format,
 I am starting a new session. in this session i plan to get all the commands working partially (the computer an recognize the commands) and i also plan to fix the bug that is not letting me read variable data into the file. I will start by editing my bash script to commit because the commit message doesnt seem to be changing
 
 ok that seems to fix it, it actually did not, i just needed to pass in the msg variable in quotes with a dollar sign in front, silly me. it should be fixed now
+okay its fixed, time to work on the project
+i will start where i left off by trying to partially implement the create command
+i figured out the bug, it was kinda obvious but regardless, its done. now the create is partially implemented so i will move on to the other commands

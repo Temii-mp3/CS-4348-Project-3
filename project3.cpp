@@ -15,13 +15,13 @@ int main(int argc, char **argv)
     uint64_t nextBlockID;
     if (isBigEndian() == 0)
     {
-        uint64_t rootID = reverseBytes(0);
-        uint64_t nextBlockID = reverseBytes(1);
+        rootID = reverseBytes(0);
+        nextBlockID = reverseBytes(1);
     }
     else
     {
-        uint64_t rootID = 0;
-        uint64_t nextBlockID = 1;
+        rootID = 0;
+        nextBlockID = 1;
     }
 
     std::fstream file;
