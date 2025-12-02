@@ -88,3 +88,8 @@ uint64_t offsets[20]
 this is a rough sketch of what i need for the node class, more research will be done to know the exact structure
 i was off by one on the array sizes but everything else tracks, i will implement the class now
 i have added the node class, the next thing to do is to fully implement all the functions, since the create function has basically been fully implemented already, i will begin with the insert function.
+
+i have started on the insert function however i will ending this session here because i need a break
+
+12/02/2025 11:17PM
+I have been able to partially implement most of the functions, the create function has been fully implemented. next session, the goal is to fuly implement the insert function

@@ -10,6 +10,7 @@ bool isIndexFile(std::string, const char *);
 
 class Node
 {
+public:
     uint64_t blockID;
     uint64_t parent_ID;
     uint64_t currentPairs;
@@ -18,12 +19,13 @@ class Node
     uint64_t offsets[20];
 };
 
+Node possibleNodes[3];
+uint64_t rootID;
+uint64_t nextBlockID;
+
 int main(int argc, char **argv)
 {
 
-    Node possibleNodes[3];
-    uint64_t rootID;
-    uint64_t nextBlockID;
     if (isBigEndian() == 0)
     {
         rootID = reverseBytes(0);
@@ -196,4 +198,24 @@ bool isIndexFile(std::string filename, const char *magic)
     }
 
     return false;
+}
+
+bool insert(std::string indexFile, uint64_t key, uint64_t value)
+{
+    char buff[8];
+    std::ifstream infile(indexFile, std::ios::binary);
+    infile.clear();
+    infile.seekg(8, std::ios::beg);
+    infile.read(buff, 8);
+
+    if ((uint64_t)buff == 0)
+    {
+        Node node1;
+        possibleNodes[0] = node1;
+        possibleNodes[0].blockID = 1;
+        possibleNodes[0].parent_ID = 0;
+
+        rootID = 1;
+        nextBlockID += 1;
+    }
 }
