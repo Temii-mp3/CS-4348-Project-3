@@ -57,3 +57,6 @@ i have been able to create the insert and create commands, the user is able to t
 
 12/01/2025 12:51 PM
 I was able to figure out the endianness of my computer and also the byte format, i was aleo able to create the insert and search commands, so two out of 3 planned commands were partially implemented. in the next session i plan to figure out how to write to the index file properly and implement the rest of the commands.
+
+12/02/2025 09:49 AM
+I am starting a new session. in this session i plan to get all the commands working partially (the computer an recognize the commands) and i also plan to fix the bug that is not letting me read variable data into the file. I will start by editing my bash script to commit because the commit message doesnt seem to be changing
