@@ -77,12 +77,14 @@ sequence of 20 bit offsets (child pointers for the node)
 so the class structure will look like this:
 class Node{
 uint64_t blockID
-uint64_t blockID
+uint64_t parent_ID
 uint64_t currentNodes
-uint64_t keys[20]
-uint64_t values[20]
-uint64_t \*offsets[21]
+uint64_t keys[19]
+uint64_t values[19]
+uint64_t offsets[20]
 
 }
 
 this is a rough sketch of what i need for the node class, more research will be done to know the exact structure
+i was off by one on the array sizes but everything else tracks, i will implement the class now
+i have added the node class, the next thing to do is to fully implement all the functions, since the create function has basically been fully implemented already, i will begin with the insert function.

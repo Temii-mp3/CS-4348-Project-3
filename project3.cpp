@@ -8,9 +8,20 @@ int isBigEndian();
 uint64_t reverseBytes(uint64_t x);
 bool isIndexFile(std::string, const char *);
 
+class Node
+{
+    uint64_t blockID;
+    uint64_t parent_ID;
+    uint64_t currentPairs;
+    uint64_t keys[19];
+    uint64_t values[19];
+    uint64_t offsets[20];
+};
+
 int main(int argc, char **argv)
 {
 
+    Node possibleNodes[3];
     uint64_t rootID;
     uint64_t nextBlockID;
     if (isBigEndian() == 0)
@@ -72,11 +83,13 @@ int main(int argc, char **argv)
         }
 
         file.open(fileToCreate, std::ios::out | std::ios::binary);
+        char zeros[488] = {0};
         if (file.is_open())
         {
             file.write(MAGIC, 8);
             file.write((char *)&rootID, 8);
             file.write((char *)&nextBlockID, 8);
+            file.write(zeros, 488);
             file.close();
             std::cout << "File Created Successfully " << std::endl;
         }
