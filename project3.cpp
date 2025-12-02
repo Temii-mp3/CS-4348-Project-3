@@ -88,15 +88,56 @@ int main(int argc, char **argv)
     }
     else if (command == "search")
     {
+        uint64_t key = (uint64_t)argv[3];
+        if (indexFile.empty())
+        {
+            std::cerr << "Usage: " << command << " search <index-file> <key>" << std::endl;
+            return 1;
+        }
+        if (!isIndexFile(indexFile, MAGIC))
+        {
+            std::cerr << "Invalid file, file must be an index file";
+        }
     }
     else if (command == "load")
     {
+        uint64_t key = (uint64_t)argv[3];
+        std::string csvFile = argv[4];
+        if (indexFile.empty() || csvFile.empty())
+        {
+            std::cerr << "Usage: " << command << " load <index-file> <csv-file>" << std::endl;
+            return 1;
+        }
+        if (!isIndexFile(indexFile, MAGIC))
+        {
+            std::cerr << "Invalid file, file must be an index file";
+        }
     }
     else if (command == "print")
     {
+        if (indexFile.empty())
+        {
+            std::cerr << "Usage: " << command << " insert <index-file> <key> <value>" << std::endl;
+            return 1;
+        }
+        if (!isIndexFile(indexFile, MAGIC))
+        {
+            std::cerr << "Invalid file, file must be an index file";
+        }
     }
     else if (command == "extract")
     {
+        uint64_t key = (uint64_t)argv[3];
+        std::string csvFile = argv[4];
+        if (indexFile.empty() || csvFile.empty())
+        {
+            std::cerr << "Usage: " << command << " load <index-file> <csv-file>" << std::endl;
+            return 1;
+        }
+        if (!isIndexFile(indexFile, MAGIC))
+        {
+            std::cerr << "Invalid file, file must be an index file";
+        }
     }
     else
     {

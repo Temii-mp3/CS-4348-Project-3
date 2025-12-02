@@ -65,3 +65,24 @@ ok that seems to fix it, it actually did not, i just needed to pass in the msg v
 okay its fixed, time to work on the project
 i will start where i left off by trying to partially implement the create command
 i figured out the bug, it was kinda obvious but regardless, its done. now the create is partially implemented so i will move on to the other commands
+
+so i have been able to partially implement all the commands, its time to implement the B tree structure, i know i need a node class to represent a node and also i should keep the 3 node constraint in mind. so the B tree has a couple of extra info to keep in mind about,
+The B tree has:
+The block id of the node
+The block id of the nodes parent(if root then 0)
+The number of key/value pairs currently in this node
+sequence of 19 64 bit keys
+sequence of 19 64 bit values
+sequence of 20 bit offsets (child pointers for the node)
+so the class structure will look like this:
+class Node{
+uint64_t blockID
+uint64_t blockID
+uint64_t currentNodes
+uint64_t keys[20]
+uint64_t values[20]
+uint64_t \*offsets[21]
+
+}
+
+this is a rough sketch of what i need for the node class, more research will be done to know the exact structure
