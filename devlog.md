@@ -93,3 +93,16 @@ i have started on the insert function however i will ending this session here be
 
 12/02/2025 11:17PM
 I have been able to partially implement most of the functions, the create function has been fully implemented. next session, the goal is to fuly implement the insert function
+
+12/02/2025 9:43 PM
+The goal of this session is to see how far i can get with implementing the insert function and any other functions, i plan to work on this for ~30 mins so we'll see how far we get
+
+i noticed that i will be reading/writing from/to the header so i will create a struct to hold that information
+
+i have created the header struct, i will not create helper functions that read/write from/to the header so as to prevent code bloat
+
+i have added the header functions, i realized that before being able to insert keys we need to be able to load the node from memory. I will implement both load node and save node functions that enable us to load and save nodes from/to disk. i also need to not forget the 3 nodes in ram rule
+
+I have been able to add 4 node related functions, including loadnode which loads a node from disk and save node which saves a node to disk. I also added a function to create an empty node for situations where the index file does not contain any nodes. Lastly, i added a helper that will check if a node is leaf (just checks if child pointers are all 0s). These functions will help reduce code bloat and make my program more readable but i am tired and have gone past the 30 minuites allocated to this so i will continue tomorrow
+12/02/2025 10:44 PM
+I was able to add several helper functions that will help me reduce code bloat, i added functions to load and save nodes to disk and i also added a header struct so its easier to maintain header state. Next session involves working on the insert function and testing the insert command.
