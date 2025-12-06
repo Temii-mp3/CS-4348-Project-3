@@ -2,6 +2,23 @@ import os
 import sys
 import struct
 
+def create(filename):
+    if os.path.exists(filename):
+        print("Error: File already exists")
+        return False
+
+    try:
+        with open(filename, "wb") as file:
+            MAGIC_NUMBER = b"4348PRJ3"
+            root_block_id = (0).to_bytes(8, "big")
+            next_block_id = (1).to_bytes(8, "big")
+            unused_space = bytes(512 - 24)
+            file.write(MAGIC_NUMBER + root_block_id + next_block_id + unused_space)
+        return True
+    except Exception as e:
+        print(f"Error creating file: {e}")
+        return False
+
 def validate_index_file(filename):
     if not os.path.exists(filename):
         print("Error: File does not exist")

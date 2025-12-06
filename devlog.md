@@ -130,3 +130,5 @@ This session was the longest ive had till date (i did sleep inbetween) i was abl
 
 12/06/2:03 PM
 After a quick break, i have switched the files so now i am using python. I have also partially implemented the commands and i am able to read commands from the command line. i also added a validate method for the index file so we know if the index file is valid or not. The next thing to do now is to start by implementing the easier commands first then we go to the hard ones so ill start with create first.
+
+Okay i implemented the create, it is wayy easier to do it in python so this shouldnt take long, i already knew how to implement it in c++ so it was just a matter of looking up syntax rules for python. I actually better if i go head first into the harder functions to implement. So the next function to implement would be the insert function. i will start by implementing a few helper funtions like last time before the actual insert function
