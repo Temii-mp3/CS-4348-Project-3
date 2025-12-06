@@ -127,3 +127,6 @@ okay, im awake now and after looking at thing for 2 extra hours im not sure exac
 
 12/06/2025 1:33 PM
 This session was the longest ive had till date (i did sleep inbetween) i was able to implement the insert function and it works, but it starts getting wonky when splits are involved and i dont want to deal with that headache right now so i will be switching to python. Next session will involve creating the python file and partially implementing the commands, just like what i did before
+
+12/06/2:03 PM
+After a quick break, i have switched the files so now i am using python. I have also partially implemented the commands and i am able to read commands from the command line. i also added a validate method for the index file so we know if the index file is valid or not. The next thing to do now is to start by implementing the easier commands first then we go to the hard ones so ill start with create first.
