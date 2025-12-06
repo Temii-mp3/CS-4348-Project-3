@@ -18,6 +18,32 @@ def create(filename):
     except Exception as e:
         print(f"Error creating file: {e}")
         return False
+    
+
+def update_parent_id(file, block_id, new_parent_id):
+    file.seek(block_id * 512 + 8)
+    file.write(struct.pack(">Q", new_parent_id))
+
+def is_leaf(node):
+    return all(child == 0 for child in node["children"])
+
+def create_btree_node(block_id, parent_id, key_value_pairs):
+    keys = [0] * 19
+    for i, (key, _) in enumerate(key_value_pairs):
+        keys[i] = key
+    
+    values = [0] * 19
+    for i, (_, value) in enumerate(key_value_pairs):
+        values[i] = value
+    
+    offset = [0] * 20
+    
+    node_format = ">QQQ" + "Q" * 19 + "Q" * 19 + "Q" * 20
+    node_data = struct.pack(node_format, 
+        block_id, parent_id, len(key_value_pairs), 
+        *keys, *values, *offset)
+    
+    return node_data
 
 def validate_index_file(filename):
     if not os.path.exists(filename):
