@@ -152,6 +152,50 @@ def insert_non_full(file, block_id, key, value, next_block_id):
         next_block_id = insert_non_full(file, child_id, key, value, next_block_id)
         
         return next_block_id
+    
+def split_node(file, block_id, next_block_id, parent_id):
+    node = read_node_at_block(file, block_id)
+    
+    middle_index = 9
+    middle_key = node["keys"][middle_index]
+    middle_value = node["values"][middle_index]
+    
+    left_keys = node["keys"][:middle_index] + [0] * (19 - middle_index)
+    left_values = node["values"][:middle_index] + [0] * (19 - middle_index)
+    left_children = node["children"][:middle_index + 1] + [0] * (20 - middle_index - 1)
+    
+    right_keys = node["keys"][middle_index + 1:node["num_keys"]] + [0] * (19 - (node["num_keys"] - middle_index - 1))
+    right_values = node["values"][middle_index + 1:node["num_keys"]] + [0] * (19 - (node["num_keys"] - middle_index - 1))
+    right_children = node["children"][middle_index + 1:node["num_keys"] + 1] + [0] * (20 - (node["num_keys"] - middle_index))
+    
+    node_format = ">QQQ" + "Q" * 19 + "Q" * 19 + "Q" * 20
+    
+    left_node = struct.pack(node_format,
+        block_id, parent_id, middle_index,
+        *left_keys, *left_values, *left_children)
+    
+    new_block_id = next_block_id
+    next_block_id += 1
+    
+    right_node = struct.pack(node_format,
+        new_block_id, parent_id, node["num_keys"] - middle_index - 1,
+        *right_keys, *right_values, *right_children)
+    
+    file.seek(block_id * 512)
+    file.write(left_node)
+    
+    file.seek(new_block_id * 512)
+    file.write(right_node)
+    
+    for child_id in left_children:
+        if child_id != 0:
+            update_parent_id(file, child_id, block_id)
+    
+    for child_id in right_children:
+        if child_id != 0:
+            update_parent_id(file, child_id, new_block_id)
+    
+    return next_block_id, middle_key, middle_value, new_block_id
 
 def read_node_at_block(file, block_id):
     file.seek(block_id * 512)
@@ -171,6 +215,56 @@ def read_btree_node(data):
         "values": list(unpacked[22:41]),
         "children": list(unpacked[41:61]),
     }
+
+def print_btree(filename):
+    def dfs(file, block_id):
+        if block_id == 0:
+            return
+        node = read_node_at_block(file, block_id)
+        for i in range(node["num_keys"]):
+            dfs(file, node["children"][i])
+            print(f"{node['keys'][i]},{node['values'][i]}")
+        dfs(file, node["children"][node["num_keys"]])
+
+    try:
+        with open(filename, "rb") as file:
+            file.seek(8)
+            root_block_id = int.from_bytes(file.read(8), "big")
+            if root_block_id == 0:
+                return
+            dfs(file, root_block_id)
+    except Exception as e:
+        print(f"Error printing: {e}")
+
+
+def search(filename, key):
+    try:
+        with open(filename, "rb") as file:
+            file.seek(8)
+            root_block_id = int.from_bytes(file.read(8), "big")
+
+            if root_block_id == 0:
+                return None
+
+            current_block_id = root_block_id
+
+            while current_block_id != 0:
+                node = read_node_at_block(file, current_block_id)
+
+                for i in range(node["num_keys"]):
+                    if node["keys"][i] == key:
+                        return node["values"][i]
+
+                i = 0
+                while i < node["num_keys"] and key > node["keys"][i]:
+                    i += 1
+
+                current_block_id = node["children"][i]
+
+            return None
+    except Exception as e:
+        print(f"Error during search: {e}")
+        return None
 
 
 def update_parent_id(file, block_id, new_parent_id):
