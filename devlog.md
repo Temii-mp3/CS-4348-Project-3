@@ -106,3 +106,24 @@ i have added the header functions, i realized that before being able to insert k
 I have been able to add 4 node related functions, including loadnode which loads a node from disk and save node which saves a node to disk. I also added a function to create an empty node for situations where the index file does not contain any nodes. Lastly, i added a helper that will check if a node is leaf (just checks if child pointers are all 0s). These functions will help reduce code bloat and make my program more readable but i am tired and have gone past the 30 minuites allocated to this so i will continue tomorrow
 12/02/2025 10:44 PM
 I was able to add several helper functions that will help me reduce code bloat, i added functions to load and save nodes to disk and i also added a header struct so its easier to maintain header state. Next session involves working on the insert function and testing the insert command.
+
+12/05/2025 7:00 PM
+I will now begin work on creating the insert function that will allow me to insert keys into the B tree. So i know in order to insert we need informatiojn from the header so we know where the current root node is and also the ID of the next available block. There are 2 cases i need to keep in mind, case 1 is if the tree is empty when i just create an empty node and save the node to disk then update the header. the second case has 2 subcases, if the tree exists, but the root is full and i need to split, then ill split the root into 2 and make the old root a child of the new root, then i;; split the old root, updae the header, insert the key into the new root, and update the header again.
+The next case is if the root is not full, in that case ill insert the key into the node normally.
+
+okay so i got the basic insert logic done and im testing it now with ./proj insert 20 4 but the hex dump is showing garbage for the value. wait let me check the code... oh its because im casting the pointer directly to uint64_t instead of converting the string. yeah that makes sense, fixed it with the convertToUint64 function
+
+alright now the hex dump looks good, values are showing up correctly in big endian. time to test with more values to make sure splitting works
+
+okay so i created a bash script to insert keys 1-30 and the tree split but now search isnt finding anything. let me check the hex dump. the structure looks off. block 2 should be the root but the data at that position has the wrong block id.
+
+oh wait i think i see it, after splitChild saves the node, the in-memory copy is stale. so when i use it after the split its got old data. let me add a reload after splitChild... yeah that should fix it
+
+testing search for 15... still says not found. let me look at the hex dump again. the root only has 1 key but it should have 2 after 30 insertions. somethings wrong with how multiple splits are being handled
+
+been staring at this for like 2 hours now and every time i fix something else breaks. the splitting logic is really hard to debug for me ngl...maybe C++ was a bad idea lol. Im going to sleep now BUT the session will still be ongoing.
+
+okay, im awake now and after looking at thing for 2 extra hours im not sure exactly where i messed up and i think with the time constraint that i have its best if i switch to python because itll be easier to understand and debug without syntax getting in the way. I will change the file and start from the beginning with just the commands partially implemented.
+
+12/06/2025 1:33 PM
+This session was the longest ive had till date (i did sleep inbetween) i was able to implement the insert function and it works, but it starts getting wonky when splits are involved and i dont want to deal with that headache right now so i will be switching to python. Next session will involve creating the python file and partially implementing the commands, just like what i did before
