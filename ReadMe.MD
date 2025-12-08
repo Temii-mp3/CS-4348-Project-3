@@ -1,2 +1,2 @@
 To run:
-python3 project3 <<command>>
+python3 project3 <<cmd>>
